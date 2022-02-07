@@ -19,10 +19,7 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}        
           
-      - name: Build solution and generate NuGet package
-        run: |  
-          cd sendgmail
-          dotnet pack -c Release -o out  
-
-      - name: Push generated package to GitHub registry
-        run: dotnet nuget push ./sendgmail/out/*.nupkg --skip-duplicate --no-symbols true
+      - name: Pack
+          run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
+      - name: Push
+        run: dotnet nuget push NuGet.Workflow.${VERSION}.nupkg --source https://nuget.pkg.github.com/joseneixe/index.json --api-key ${secrets.NUGET_API_KEY}
