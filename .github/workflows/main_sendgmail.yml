@@ -37,8 +37,8 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}} 
 
-      - name: Push to NuGet Feed
+      - name: Pack NuGet
         run: dotnet pack --configuration Release          
           
       - name: Push to NuGet Feed
-        run: dotnet nuget push ./sendgmail/sendgmail/SendGmail/bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push ${{env.DOTNET_ROOT}}\*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
