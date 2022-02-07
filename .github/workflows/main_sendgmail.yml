@@ -21,7 +21,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        working-directory: SendGmail/SendGmail
+        working-directory: SendGmail
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\SendGmail
 
       - name: Upload artifact for deployment job
