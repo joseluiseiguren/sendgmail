@@ -35,7 +35,10 @@ jobs:
         with:
           source-url: https://nuget.pkg.github.com/joseneixe/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}        
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}} 
+
+      - name: Push to NuGet Feed
+        run: dotnet nuget pack --configuration Release          
           
       - name: Push to NuGet Feed
         run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
