@@ -4,7 +4,33 @@ on:
     branches:
       - main
 jobs:
-  build:
+  build 1:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - name: Build with dotnet
+        working-directory: SendGmail
+        run: dotnet build --configuration Release
+
+      - name: dotnet publish
+        working-directory: SendGmail/SendGmail
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\SendGmail
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/SendGmail
+          
+  build 2:
     runs-on: ubuntu-18.04
     name: Update NuGet package
     steps:
@@ -19,7 +45,5 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}        
           
-      - name: Pack
-          run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output .
-      - name: Push
-        run: dotnet nuget push NuGet.Workflow.${VERSION}.nupkg --source https://nuget.pkg.github.com/joseneixe/index.json --api-key ${secrets.NUGET_API_KEY}
+      - name: Push to NuGet Feed
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_KEY }}
