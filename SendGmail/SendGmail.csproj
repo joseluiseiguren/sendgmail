@@ -8,6 +8,7 @@
     <Copyright>Joseneixe</Copyright>
     <PackageProjectUrl>https://github.com/joseluiseiguren/sendgmail</PackageProjectUrl>
     <RepositoryUrl>https://github.com/joseluiseiguren/sendgmail</RepositoryUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
