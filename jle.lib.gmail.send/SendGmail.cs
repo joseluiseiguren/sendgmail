@@ -38,7 +38,7 @@ namespace jle.lib.gmail.send
                 IsBodyHtml = true
             })
             {
-                await smtp.SendMailAsync(message);
+                await smtp.SendMailAsync(message); 
             }
         }
     }
