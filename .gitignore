@@ -1,3 +1,5 @@
 ﻿/.vs/SendGmail
 /SendGmail/bin/Debug/net6.0
 /SendGmail/obj
+/jle.lib.gmail.send/bin/Debug
+/jle.lib.gmail.send/obj

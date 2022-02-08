@@ -17,18 +17,18 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        working-directory: SendGmail
+        working-directory: jle.lib.gmail.send
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        working-directory: SendGmail
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\SendGmail
+        working-directory: jle.lib.gmail.send
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}\jle.lib.gmail.send
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/SendGmail
+          path: ${{env.DOTNET_ROOT}}/jle.lib.gmail.send
           
       - name: Setup .NET Core @ Latest
         uses: actions/setup-dotnet@v1
@@ -41,4 +41,4 @@ jobs:
         run: dotnet pack --configuration Release          
           
       - name: Push to NuGet Feed
-        run: dotnet nuget push D:\a\sendgmail\sendgmail\SendGmail\bin\Release\*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
+        run: dotnet nuget push D:\a\sendgmail\sendgmail\jle.lib.gmail.send\bin\Release\*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
