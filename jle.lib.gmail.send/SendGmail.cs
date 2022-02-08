@@ -3,7 +3,7 @@ using System.Net.Mail;
 
 namespace jle.lib.gmail.send
 {
-    c-public class SendGmail
+    public class SendGmail
     {
         private readonly string _fromEmail;
         private readonly string _fromPassword;
@@ -38,7 +38,7 @@ namespace jle.lib.gmail.send
                 IsBodyHtml = true
             })
             {
-                await smtp.SendMailAsync(message);
+                await smtp.SendMailAsync(message); 
             }
         }
     }
