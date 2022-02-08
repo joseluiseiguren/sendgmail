@@ -38,6 +38,10 @@ jobs:
      #     NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}} 
 
       - name: Pack NuGet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
         run: dotnet pack --configuration Release          
           
       - name: Push to NuGet Feed
