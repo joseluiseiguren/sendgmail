@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace SendGmail
+namespace jle.lib.gmail.send
 {
     public class SendGmail
     {
@@ -16,10 +16,10 @@ namespace SendGmail
             _displayName = displayName;
         }
 
-        public async Task SendAsync(string toEmail, string toName, string subject, string body)
+        public async Task SendAsync(string toEmail, string toName, string subject, string htmlBody)
         {
             var fromAddress = new MailAddress(_fromEmail, _displayName);
-            
+
             var toAddress = new MailAddress(toEmail, toName);
 
             var smtp = new SmtpClient
@@ -34,7 +34,7 @@ namespace SendGmail
             using (var message = new MailMessage(fromAddress, toAddress)
             {
                 Subject = subject,
-                Body = body,
+                Body = htmlBody,
                 IsBodyHtml = true
             })
             {
