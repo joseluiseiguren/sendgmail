@@ -3,7 +3,7 @@ using System.Net.Mail;
 
 namespace jle.lib.gmail.send
 {
-    a-public class SendGmail
+    b-public class SendGmail
     {
         private readonly string _fromEmail;
         private readonly string _fromPassword;
