@@ -1,0 +1,25 @@
+name: push sendgmail to nuget
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - name: Pack NuGet
+        run: dotnet pack --configuration Release          
+          
+      - name: Push to NuGet Feed
+        run: dotnet nuget push D:\a\sendgmail\sendgmail\jle.lib.gmail.send\bin\Release\*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
+        
+        
