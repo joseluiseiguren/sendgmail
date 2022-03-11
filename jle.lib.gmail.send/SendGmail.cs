@@ -16,7 +16,7 @@ namespace jle.lib.gmail.send
             _displayName = displayName;
         }
 
-        public async Task SendAsync(string toEmail, string toName, string subject, string htmlBody)
+        public async Task SendAsync(string toEmail, string toName, string subject, string htmlBody, string? attachmentFileName = null, Stream? attachementContentStream = null)
         {
             var fromAddress = new MailAddress(_fromEmail, _displayName);
 
@@ -38,6 +38,14 @@ namespace jle.lib.gmail.send
                 IsBodyHtml = true
             })
             {
+                if (attachmentFileName != null && attachementContentStream != null)
+                {
+                    var contentType = new System.Net.Mime.ContentType();
+                    contentType.MediaType = System.Net.Mime.MediaTypeNames.Application.Octet;
+                    contentType.Name = attachmentFileName;
+                    message.Attachments.Add(new Attachment(attachementContentStream, contentType));
+                }
+
                 await smtp.SendMailAsync(message); 
             }
         }
